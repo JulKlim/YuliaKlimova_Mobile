@@ -1,14 +1,8 @@
 {
     "registrationData": [
         {
-            "email": "jk@gmail.com",
-            "username": "Julia",
-            "password": "admin12345"
-        }
-    ],
-    "loginData": [
-        {
-            "email": "jk@gmail.com",
+            "email": "testUser@gmail.com",
+            "username": "John",
             "password": "admin12345"
         }
     ]

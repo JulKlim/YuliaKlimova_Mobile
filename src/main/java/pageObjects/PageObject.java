@@ -1,10 +1,11 @@
 package pageObjects;
 
 import io.appium.java_client.AppiumDriver;
-import org.openqa.selenium.WebElement;
+import pageObjects.nativePageObject.BudgetActivityPage;
+import pageObjects.nativePageObject.LoginPage;
+import pageObjects.nativePageObject.RegistrationPage;
+import pageObjects.webPageObject.WebPageObject;
 import setup.IPageObject;
-
-import java.lang.reflect.Field;
 
 public class PageObject implements IPageObject {
 
@@ -18,18 +19,12 @@ public class PageObject implements IPageObject {
                 somePageObject = new WebPageObject(appiumDriver);
                 break;
             case "native":
-                somePageObject = new NativePageObject(appiumDriver);
+                somePageObject = new LoginPage(appiumDriver);
+                somePageObject = new RegistrationPage(appiumDriver);
+                somePageObject = new BudgetActivityPage(appiumDriver);
                 break;
             default:
                 throw new Exception("Can't create a page object for " + appType);
         }
-    }
-
-    @Override
-    public WebElement getWelement(String weName) throws NoSuchFieldException, IllegalAccessException {
-        // use reflection technique
-        Field field = somePageObject.getClass().getDeclaredField(weName);
-        field.setAccessible(true);
-        return (WebElement) field.get(somePageObject);
     }
 }
