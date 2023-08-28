@@ -31,8 +31,9 @@ public class webMobileTests extends BaseTest {
     @Test(groups = {"web"}, description = "Search for EPAM", priority = 2, dataProvider = "searchValues",
           dataProviderClass = TestDataProvider.class)
     public void performSearchAndValidateSearchResults(String searchValue) throws InterruptedException {
+        WebPageObject webPageObject = new WebPageObject(getDriver());
         // Enter search value in the search field
-        WebPageObject.enterValueIntoSearchField(searchValue);
+        webPageObject.enterValueIntoSearchField(searchValue);
         System.out.println("Search is performed for: " + searchValue);
         // Wait for search results to load
         new WebDriverWait(getDriver(), Duration.ofSeconds(10)).until(
@@ -43,7 +44,7 @@ public class webMobileTests extends BaseTest {
                                                         .as("Page with search results is opened");
         System.out.println("Page title with search results for: " + searchValue + " is correct");
         // Verify search results contain search value
-        assertThat(WebPageObject.checkHeadersText(searchValue))
+        assertThat(webPageObject.checkHeadersText(searchValue))
             .as("All headers on search result page contain search value in the headers").isTrue();
 
         // Log that test finished

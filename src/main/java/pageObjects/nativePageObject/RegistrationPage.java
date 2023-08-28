@@ -8,78 +8,60 @@ import org.openqa.selenium.support.PageFactory;
 
 public class RegistrationPage {
     @AndroidFindBy(id = "platkovsky.alexey.epamtestapp:id/registration_form")
-    WebElement registrationForm;
+    private WebElement registrationForm;
     @AndroidFindBy(id = "platkovsky.alexey.epamtestapp:id/registration_email")
-    public static WebElement emailField;
+    private WebElement emailField;
     @AndroidFindBy(id = "platkovsky.alexey.epamtestapp:id/registration_username")
-    WebElement usernameField;
+    private WebElement usernameField;
     @AndroidFindBy(id = "platkovsky.alexey.epamtestapp:id/registration_password")
-    WebElement passwordField;
+    private WebElement passwordField;
     @AndroidFindBy(id = "platkovsky.alexey.epamtestapp:id/registration_confirm_password")
-    WebElement confirmPassField;
+    private WebElement confirmPassField;
     @AndroidFindBy(className = "android.widget.CheckedTextView")
-    WebElement agreementCheckbox;
+    private WebElement agreementCheckbox;
     @AndroidFindBy(id = "platkovsky.alexey.epamtestapp:id/register_new_account_button")
-    WebElement registerNewAccountBtn;
+    private WebElement registerNewAccountBtn;
 
     public RegistrationPage(AppiumDriver appiumDriver) {
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver), this);
     }
-
-    public boolean isRegistrationFormDisplayed() {
-        boolean isRegistrationFormDisplayed = true;
-        if (!registrationForm.isDisplayed()) {
-            isRegistrationFormDisplayed = false;
-        }
-        return isRegistrationFormDisplayed;
+    public enum ElementType {
+        REGISTRATION_FORM,
+        EMAIL_FIELD,
+        USERNAME_FIELD,
+        PASSWORD_FIELD,
+        CONFIRM_PASSWORD_FIELD,
+        AGREE_CHECKBOX,
+        REGISTER_NEW_ACCOUNT_BUTTON
     }
-
-    public boolean isEmailFieldDisplayed() {
-        boolean isEmailFieldDisplayed = true;
-        if (!emailField.isDisplayed()) {
-            isEmailFieldDisplayed = false;
+    public boolean isElementDisplayed(ElementType elementType) {
+        boolean isElementDisplayed = true;
+        switch (elementType) {
+            case REGISTRATION_FORM:
+                isElementDisplayed = registrationForm.isDisplayed();
+                break;
+            case EMAIL_FIELD:
+                isElementDisplayed = emailField.isDisplayed();
+                break;
+            case USERNAME_FIELD:
+                isElementDisplayed = usernameField.isDisplayed();
+                break;
+            case PASSWORD_FIELD:
+                isElementDisplayed = passwordField.isDisplayed();
+                break;
+            case CONFIRM_PASSWORD_FIELD:
+                isElementDisplayed = confirmPassField.isDisplayed();
+                break;
+            case AGREE_CHECKBOX:
+                isElementDisplayed = agreementCheckbox.isDisplayed();
+                break;
+            case REGISTER_NEW_ACCOUNT_BUTTON:
+                isElementDisplayed = registerNewAccountBtn.isDisplayed();
+                break;
+            default:
+                System.out.println("Element is not found");
         }
-        return isEmailFieldDisplayed;
-    }
-
-    public boolean isUsernameFieldDisplayed() {
-        boolean isUsernameFieldDisplayed = true;
-        if (!usernameField.isDisplayed()) {
-            isUsernameFieldDisplayed = false;
-        }
-        return isUsernameFieldDisplayed;
-    }
-
-    public boolean isPasswordFieldDisplayed() {
-        boolean isPassFieldDisplayed = true;
-        if (!passwordField.isDisplayed()) {
-            isPassFieldDisplayed = false;
-        }
-        return isPassFieldDisplayed;
-    }
-
-    public boolean isConfirmPasswordFieldDisplayed() {
-        boolean isConfirmPassFieldDisplayed = true;
-        if (!confirmPassField.isDisplayed()) {
-            isConfirmPassFieldDisplayed = false;
-        }
-        return isConfirmPassFieldDisplayed;
-    }
-
-    public boolean isAgreeCheckboxDisplayed() {
-        boolean isAgreeCheckboxDisplayed = true;
-        if (!agreementCheckbox.isDisplayed()) {
-            isAgreeCheckboxDisplayed = false;
-        }
-        return isAgreeCheckboxDisplayed;
-    }
-
-    public boolean isRegisterNewAccountDisplayed() {
-        boolean isRegisterNewAccountDisplayed = true;
-        if (!registerNewAccountBtn.isDisplayed()) {
-            isRegisterNewAccountDisplayed = false;
-        }
-        return isRegisterNewAccountDisplayed;
+        return isElementDisplayed;
     }
 
     public void enterRegistrationDetails(String email, String username, String password) {

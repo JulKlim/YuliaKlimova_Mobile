@@ -8,7 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 
 public class BudgetActivityPage {
     @AndroidFindBy(xpath = "//*[contains(@text, 'BudgetActivity')]")
-    WebElement BudgetActivityHeader;
+    private WebElement BudgetActivityHeader;
 
     public BudgetActivityPage(AppiumDriver appiumDriver) {
         PageFactory.initElements(new AppiumFieldDecorator(appiumDriver), this);

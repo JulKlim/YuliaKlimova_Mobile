@@ -1,13 +1,12 @@
 package scenarios;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-
 import org.assertj.core.api.SoftAssertions;
 import org.json.JSONObject;
 import org.testng.annotations.Test;
 import pageObjects.nativePageObject.BudgetActivityPage;
 import pageObjects.nativePageObject.LoginPage;
 import pageObjects.nativePageObject.RegistrationPage;
+import pageObjects.nativePageObject.RegistrationPage.ElementType;
 import setup.BaseTest;
 import testData.TestDataProvider;
 
@@ -25,30 +24,30 @@ public class nativeMobileTests extends BaseTest {
         BudgetActivityPage budgetActivityPage = new BudgetActivityPage(getDriver());
 
         //Check if user can proceed to registration page from login page
-        softAssertions.assertThat(loginPage.isRegisterNewAccountBtnDisplayed())
+        softAssertions.assertThat(loginPage.isElementDisplayed(LoginPage.ElementType.REGISTER_NEW_ACCOUNT_BUTTON))
                       .as("Button for registration of a new account is displayed").isTrue();
         loginPage.clickRegisterNewAccountBtn();
         System.out.println("'Register new account' button is displayed and can be clicked");
 
         //Check if user is on registration page
-        softAssertions.assertThat(registrationPage.isRegistrationFormDisplayed())
+        softAssertions.assertThat(registrationPage.isElementDisplayed(ElementType.REGISTRATION_FORM))
                       .as("Registration form is displayed").isTrue();
         System.out.println("User is on registration page");
 
         //Check all fields for registration are displayed
-        softAssertions.assertThat(registrationPage.isEmailFieldDisplayed())
+        softAssertions.assertThat(registrationPage.isElementDisplayed(ElementType.EMAIL_FIELD))
                       .as("Email field is displayed").isTrue();
         System.out.println("Email field is displayed");
-        softAssertions.assertThat(registrationPage.isUsernameFieldDisplayed())
+        softAssertions.assertThat(registrationPage.isElementDisplayed(ElementType.USERNAME_FIELD))
                       .as("Username field is displayed").isTrue();
         System.out.println("Username field is displayed");
-        softAssertions.assertThat(registrationPage.isPasswordFieldDisplayed())
+        softAssertions.assertThat(registrationPage.isElementDisplayed(ElementType.PASSWORD_FIELD))
                       .as("Password field is displayed").isTrue();
         System.out.println("Password field is displayed");
-        softAssertions.assertThat(registrationPage.isConfirmPasswordFieldDisplayed())
+        softAssertions.assertThat(registrationPage.isElementDisplayed(ElementType.CONFIRM_PASSWORD_FIELD))
                       .as("Field for password confirmation is displayed").isTrue();
         System.out.println("Field for password confirmation is displayed");
-        softAssertions.assertThat(registrationPage.isAgreeCheckboxDisplayed())
+        softAssertions.assertThat(registrationPage.isElementDisplayed(ElementType.AGREE_CHECKBOX))
                       .as("Agreement checkbox is displayed").isTrue();
         System.out.println("Agreement checkbox is displayed");
         //Fill the form with registration details
@@ -57,26 +56,26 @@ public class nativeMobileTests extends BaseTest {
         System.out.println("Registration form is filled in");
 
         //Check registration button is displayed and confirm registration of a new account
-        softAssertions.assertThat(registrationPage.isRegisterNewAccountDisplayed())
+        softAssertions.assertThat(registrationPage.isElementDisplayed(ElementType.REGISTER_NEW_ACCOUNT_BUTTON))
                       .as("Button 'Register new account' is displayed").isTrue();
         System.out.println("Button 'Register new account' is displayed");
         registrationPage.registerNewAccount();
 
         //Check the user is on login page
-        softAssertions.assertThat(loginPage.isLoginFormDisplayed())
+        softAssertions.assertThat(loginPage.isElementDisplayed(LoginPage.ElementType.LOGIN_FORM))
                       .as("Login form is displayed").isTrue();
         System.out.println("User is on login page");
 
         //Check all login fields are displayed
-        softAssertions.assertThat(loginPage.isLoginFieldDisplayed())
+        softAssertions.assertThat(loginPage.isElementDisplayed(LoginPage.ElementType.LOGIN_EMAIL_FIELD))
                       .as("Login field is displayed").isTrue();
         System.out.println("Login field is displayed and can be filled in");
-        softAssertions.assertThat(loginPage.isPassFieldDisplayed())
+        softAssertions.assertThat(loginPage.isElementDisplayed(LoginPage.ElementType.LOGIN_PASSWORD_FIELD))
                       .as("Login password field is displayed").isTrue();
         System.out.println("Login password field is displayed");
 
         //Check "Sign in" button is displayed and perform login
-        softAssertions.assertThat(loginPage.isSignInBtnDisplayed())
+        softAssertions.assertThat(loginPage.isElementDisplayed(LoginPage.ElementType.SIGN_IN_BUTTON))
                       .as("Login password field is displayed").isTrue();
         System.out.println("'Sign in' button is displayed");
         loginPage.performLogin(testData.getString("email"), testData.getString("password"));

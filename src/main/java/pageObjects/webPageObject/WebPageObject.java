@@ -10,22 +10,22 @@ import org.openqa.selenium.support.PageFactory;
 public class WebPageObject {
 
     @FindBy(xpath = "//input[@name='q']")
-    public static WebElement searchField;
+    private WebElement searchField;
 
     @FindBy(className = "LC20lb")
-    public static List<WebElement> searchResults;
+    private List<WebElement> searchResults;
 
     public WebPageObject(AppiumDriver appiumDriver) {
         PageFactory.initElements(appiumDriver, this);
     }
 
-    public static void enterValueIntoSearchField(String searchText) {
+    public void enterValueIntoSearchField(String searchText) {
         searchField.click();
         searchField.sendKeys(searchText);
         searchField.sendKeys(Keys.ENTER);
     }
 
-    public static boolean checkHeadersText(String expectedSearchValue) {
+    public boolean checkHeadersText(String expectedSearchValue) {
         boolean areHeaderTextsMatchSearchValue = true;
 
         for (WebElement result : searchResults) {
