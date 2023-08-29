@@ -1,0 +1,9 @@
+{
+    "registrationData": [
+        {
+            "email": "testUser@gmail.com",
+            "username": "John",
+            "password": "admin12345"
+        }
+    ]
+}
