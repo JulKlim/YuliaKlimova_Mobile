@@ -34,13 +34,19 @@ public class webMobileTests extends BaseTest {
         WebPageObject webPageObject = new WebPageObject(getDriver());
         // Enter search value in the search field
         webPageObject.enterValueIntoSearchField(searchValue);
+        System.out.println(searchValue + " is entered into the search field");
+
+        //Select the first suggestion from the list
+        webPageObject.selectFirstElementFromSuggestionsList();
         System.out.println("Search is performed for: " + searchValue);
+
         // Wait for search results to load
         new WebDriverWait(getDriver(), Duration.ofSeconds(10)).until(
             wd -> ((JavascriptExecutor) wd).executeScript("return document.readyState").equals("complete")
         );
         // Verify page with search results contain correct title
-        assertThat(((WebDriver) getDriver()).getTitle()).contains(searchValue)
+        String titleText = ((WebDriver) getDriver()).getTitle().toUpperCase();
+        assertThat(titleText).contains(searchValue)
                                                         .as("Page with search results is opened");
         System.out.println("Page title with search results for: " + searchValue + " is correct");
         // Verify search results contain search value

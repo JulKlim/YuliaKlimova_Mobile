@@ -23,13 +23,16 @@ public class BaseTest implements IDriver {
     //return po;
     //}
 
-    @Parameters({"platformName", "appType", "deviceName", "browserName", "app"})
+    @Parameters({"platformName", "appType", "deviceName", "browserName", "app", "appPackage", "serial", "bundleId"})
     @BeforeSuite(alwaysRun = true)
     public void setUp(String platformName, String appType, @Optional("") String deviceName,
+                      @Optional("") String serial,
                       @Optional("") String browserName,
-                      @Optional("") String app) throws Exception {
+                      @Optional("") String app,
+                      @Optional("") String appPackage,
+                      @Optional("") String bundleId) throws Exception {
         System.out.println("Before: app type - " + appType);
-        setAppiumDriver(platformName, deviceName, browserName, app);
+        setAppiumDriver(platformName, deviceName, browserName, app, appPackage, serial, bundleId);
         //setPageObject(appType, appiumDriver);
     }
 
@@ -39,7 +42,8 @@ public class BaseTest implements IDriver {
         appiumDriver.quit();
     }
 
-    private void setAppiumDriver(String platformName, String deviceName, String browserName, String app) {
+    private void setAppiumDriver(String platformName, String deviceName, String serial, String browserName, String app,
+                                 String appPackage, String bundleId) {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         //mandatory Android capabilities
         capabilities.setCapability("platformName", platformName);
@@ -51,6 +55,8 @@ public class BaseTest implements IDriver {
 
         capabilities.setCapability("browserName", browserName);
         capabilities.setCapability("chromedriverDisableBuildCheck", "true");
+        capabilities.setCapability("appPackage", appPackage);
+        capabilities.setCapability("bundleId", bundleId);
 
         try {
             appiumDriver = new AppiumDriver(new URL(System.getProperty("ts.appium")), capabilities);

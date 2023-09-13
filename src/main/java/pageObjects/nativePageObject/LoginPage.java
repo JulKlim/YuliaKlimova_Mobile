@@ -1,21 +1,35 @@
 package pageObjects.nativePageObject;
 
+import static java.sql.DriverManager.getDriver;
+
+import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginPage {
     @AndroidFindBy(id = "platkovsky.alexey.epamtestapp:id/register_button")
+    //*[@resource-id = 'platkovsky.alexey.epamtestapp:id/register_button']
+    @iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Register new account']")
+    //@AndroidFindBy(xpath = "//*[@resource-id = 'platkovsky.alexey.epamtestapp:id/register_button']")
     private WebElement registerNewAccountButton;
-    @AndroidFindBy(id = "platkovsky.alexey.epamtestapp:id/login_form")
-    private WebElement loginForm;
+
+    //Maybe remove the locator and check with login form?
+    //@AndroidFindBy(id = "platkovsky.alexey.epamtestapp:id/login_form")
+    //private WebElement loginForm;
     @AndroidFindBy(id = "platkovsky.alexey.epamtestapp:id/login_email")
+    @iOSXCUITFindBy(xpath = "//XCUIElementTypeTextField[@value='user@example.com']")
     private WebElement loginEmailField;
     @AndroidFindBy(id = "platkovsky.alexey.epamtestapp:id/login_pwd")
+    @iOSXCUITFindBy(xpath = "//XCUIElementTypeSecureTextField[@value='Required']")
     private WebElement loginPwdField;
     @AndroidFindBy(id = "platkovsky.alexey.epamtestapp:id/email_sign_in_button")
+    @iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Sign In']")
     private WebElement signInBtn;
 
     public LoginPage(AppiumDriver appiumDriver) {
@@ -24,7 +38,7 @@ public class LoginPage {
 
     public enum ElementType {
         REGISTER_NEW_ACCOUNT_BUTTON,
-        LOGIN_FORM,
+        //LOGIN_FORM,
         LOGIN_EMAIL_FIELD,
         LOGIN_PASSWORD_FIELD,
         SIGN_IN_BUTTON
@@ -36,16 +50,16 @@ public class LoginPage {
             case REGISTER_NEW_ACCOUNT_BUTTON:
                 isElementDisplayed = registerNewAccountButton.isDisplayed();
                 break;
-            case LOGIN_FORM:
-                isElementDisplayed = loginForm.isDisplayed();
-                break;
+            //case LOGIN_FORM:
+            //isElementDisplayed = loginForm.isDisplayed();
+            //break;
             case LOGIN_EMAIL_FIELD:
                 isElementDisplayed = loginEmailField.isDisplayed();
                 break;
             case LOGIN_PASSWORD_FIELD:
                 isElementDisplayed = loginPwdField.isDisplayed();
                 break;
-                case SIGN_IN_BUTTON:
+            case SIGN_IN_BUTTON:
                 isElementDisplayed = signInBtn.isDisplayed();
                 break;
             default:
