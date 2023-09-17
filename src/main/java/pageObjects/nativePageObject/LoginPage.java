@@ -14,14 +14,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginPage {
     @AndroidFindBy(id = "platkovsky.alexey.epamtestapp:id/register_button")
-    //*[@resource-id = 'platkovsky.alexey.epamtestapp:id/register_button']
     @iOSXCUITFindBy(xpath = "//XCUIElementTypeStaticText[@name='Register new account']")
-    //@AndroidFindBy(xpath = "//*[@resource-id = 'platkovsky.alexey.epamtestapp:id/register_button']")
     private WebElement registerNewAccountButton;
-
-    //Maybe remove the locator and check with login form?
-    //@AndroidFindBy(id = "platkovsky.alexey.epamtestapp:id/login_form")
-    //private WebElement loginForm;
     @AndroidFindBy(id = "platkovsky.alexey.epamtestapp:id/login_email")
     @iOSXCUITFindBy(xpath = "//XCUIElementTypeTextField[@value='user@example.com']")
     private WebElement loginEmailField;
@@ -38,7 +32,6 @@ public class LoginPage {
 
     public enum ElementType {
         REGISTER_NEW_ACCOUNT_BUTTON,
-        //LOGIN_FORM,
         LOGIN_EMAIL_FIELD,
         LOGIN_PASSWORD_FIELD,
         SIGN_IN_BUTTON
@@ -50,9 +43,6 @@ public class LoginPage {
             case REGISTER_NEW_ACCOUNT_BUTTON:
                 isElementDisplayed = registerNewAccountButton.isDisplayed();
                 break;
-            //case LOGIN_FORM:
-            //isElementDisplayed = loginForm.isDisplayed();
-            //break;
             case LOGIN_EMAIL_FIELD:
                 isElementDisplayed = loginEmailField.isDisplayed();
                 break;

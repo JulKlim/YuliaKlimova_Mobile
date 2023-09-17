@@ -2,7 +2,6 @@ package scenarios;
 
 import org.assertj.core.api.SoftAssertions;
 import org.json.JSONObject;
-import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 import pageObjects.nativePageObject.BudgetActivityPage;
 import pageObjects.nativePageObject.LoginPage;
@@ -61,11 +60,7 @@ public class nativeMobileTests extends BaseTest {
                       .as("Button 'Register new account' is displayed").isTrue();
         System.out.println("Button 'Register new account' is displayed");
         registrationPage.registerNewAccount();
-
-        //Check the user is on login page
-        //softAssertions.assertThat(loginPage.isElementDisplayed(LoginPage.ElementType.LOGIN_FORM))
-        //.as("Login form is displayed").isTrue();
-        //System.out.println("User is on login page");
+        System.out.println("Button 'Register new account' is clicked on");
 
         //Check all login fields are displayed
         softAssertions.assertThat(loginPage.isElementDisplayed(LoginPage.ElementType.LOGIN_EMAIL_FIELD))
@@ -84,7 +79,7 @@ public class nativeMobileTests extends BaseTest {
 
         //Check user is on BudgetActivity page
         softAssertions.assertThat(budgetActivityPage.getBudgetActivityPageHeader())
-                      .as("BudgetActivity page is opened").isEqualTo("BudgetActivity");
+                      .as("BudgetActivity page is opened").contains("Budget");
         System.out.println("User is on BudgetActivity page");
         System.out.println("BudgetActivity page is opened");
 

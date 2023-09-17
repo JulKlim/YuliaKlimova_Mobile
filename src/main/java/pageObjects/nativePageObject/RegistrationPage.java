@@ -6,6 +6,7 @@ import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import setup.BaseTest;
 
 public class RegistrationPage {
     @AndroidFindBy(id = "platkovsky.alexey.epamtestapp:id/registration_form")
@@ -77,10 +78,15 @@ public class RegistrationPage {
         usernameField.sendKeys(username);
         passwordField.sendKeys(password);
         confirmPassField.sendKeys(password);
-        agreementCheckbox.click();
     }
 
     public void registerNewAccount() {
-        registerNewAccountBtn.click();
+        String platformName = BaseTest.getPlatformName();
+        if (platformName.equals("Android")){
+            registerNewAccountBtn.click();
+        } else {
+            registerNewAccountBtn.click();
+            registerNewAccountBtn.click();
+        }
     }
 }
