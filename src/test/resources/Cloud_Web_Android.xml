@@ -1,8 +1,8 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="EPAM mobile cloud Web testing Suite">
   <parameter name="appType" value="web"></parameter>
-  <!--parameter name="deviceName" value="Samsung Galaxy A13"></parameter-->
-  <parameter name="serial" value="0A131FDD4004L1"></parameter>
+  <!--parameter name="deviceName" value="Google Pixel 5"></parameter-->
+  <parameter name="serial" value="0A211JEC222740"></parameter>
   <parameter name="platformName" value="Android"></parameter>
   <parameter name="browserName" value="Chrome"></parameter>
   <test name="Cloud Web tests">

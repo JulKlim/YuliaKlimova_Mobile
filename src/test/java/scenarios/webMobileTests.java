@@ -13,8 +13,9 @@ import testData.TestDataProvider;
 
 public class webMobileTests extends BaseTest {
 
-    @Test(groups = {"web"}, description = "Make sure that we've opened Google search homepage", priority = 1)
-    public void goToGoogleSearchPage() throws InterruptedException {
+    @Test(groups = {"web"}, description = "Search for EPAM", dataProvider = "searchValues",
+          dataProviderClass = TestDataProvider.class)
+    public void goToGoogleSearchPage(String searchValue) throws InterruptedException {
         getDriver().get("https://www.google.com"); // open Google search homepage
 
         // Make sure that page has been loaded completely
@@ -26,11 +27,7 @@ public class webMobileTests extends BaseTest {
                                                         .as("Google search page is opened");
         // Log that test finished
         System.out.println("Site opening done");
-    }
 
-    @Test(groups = {"web"}, description = "Search for EPAM", priority = 2, dataProvider = "searchValues",
-          dataProviderClass = TestDataProvider.class)
-    public void performSearchAndValidateSearchResults(String searchValue) throws InterruptedException {
         WebPageObject webPageObject = new WebPageObject(getDriver());
         // Enter search value in the search field
         webPageObject.enterValueIntoSearchField(searchValue);
@@ -47,7 +44,7 @@ public class webMobileTests extends BaseTest {
         // Verify page with search results contain correct title
         String titleText = ((WebDriver) getDriver()).getTitle().toUpperCase();
         assertThat(titleText).contains(searchValue)
-                                                        .as("Page with search results is opened");
+                             .as("Page with search results is opened");
         System.out.println("Page title with search results for: " + searchValue + " is correct");
         // Verify search results contain search value
         assertThat(webPageObject.checkHeadersText(searchValue))
