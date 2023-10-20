@@ -1,9 +1,9 @@
 package setup;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.ios.options.XCUITestOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.*;
-
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -24,7 +24,7 @@ public class BaseTest implements IDriver {
     }
 
 
-    @Parameters({"platformName", "appType", "deviceName", "browserName", "app", "appPackage", "serial", "bundleId", "udid", "appActivity"})
+    @Parameters({"platformName", "appType", "deviceName", "serial", "udid","browserName", "bundleId", "platformVersion", "app", "appPackage","appActivity"})
     @BeforeSuite(alwaysRun = true)
     public void setUp(String platformName, String appType, @Optional("") String deviceName,
                       @Optional("") String serial,
@@ -32,18 +32,20 @@ public class BaseTest implements IDriver {
                       @Optional("") String udid,
                       @Optional("") String app,
                       @Optional("") String appPackage,
-                      @Optional("") String appActivity,
-                      @Optional("") String bundleId) throws Exception {
+                      @Optional("") String bundleId,
+                      @Optional("") String platformVersion,
+                      @Optional("") String appActivity)
+        throws Exception {
         this.platformName = platformName;
         System.out.println("Before: app type - " + appType);
         if (appType.equals("web") && getPlatformName().equals("Android")) {
             setAndroidWebAppiumDriver(platformName, deviceName, browserName, serial);
         } else if (appType.equals("web") && getPlatformName().equals("iOS")) {
-            setIOSWebAppiumDriver(platformName, browserName, udid);
+            setIOSWebAppiumDriver(platformName, browserName, platformVersion, udid);
         } else if (appType.equals("native") && getPlatformName().equals("Android")){
             setNativeAndroidAppiumDriver(platformName, deviceName, serial, appPackage, appActivity, app);
         } else {
-            setNativeIOSAppiumDriver(platformName, deviceName, udid, bundleId, app);
+            setNativeIOSAppiumDriver(platformName, platformVersion, bundleId, udid);
         }
     }
 
@@ -77,20 +79,13 @@ public class BaseTest implements IDriver {
         appiumDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
-    private void setNativeIOSAppiumDriver(String platformName, String deviceName, String udid,
-                                          String bundleId, String app) {
+    private void setNativeIOSAppiumDriver(String platformName, String udid, String platformVersion,
+                                          String bundleId) {
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        //mandatory native iOS capabilities
         capabilities.setCapability("platformName", platformName);
-        capabilities.setCapability("deviceName", deviceName);
-
-        if (app.endsWith(".ipa")) {
-            capabilities.setCapability("app", (new File(app)).getAbsolutePath());
-        }
-
-
-        capabilities.setCapability("bundleId", bundleId);
         capabilities.setCapability("udid", udid);
+        capabilities.setCapability("platformVersion", platformVersion);
+        capabilities.setCapability("bundleId", bundleId);
 
         try {
             appiumDriver = new AppiumDriver(new URL(System.getProperty("ts.appium")), capabilities);
@@ -121,15 +116,15 @@ public class BaseTest implements IDriver {
         appiumDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
-    private void setIOSWebAppiumDriver(String platformName, String udid, String browserName) {
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        //mandatory web iOS capabilities
-        capabilities.setCapability("platformName", platformName);
-        capabilities.setCapability("udid", udid);
-        capabilities.setCapability("browserName", browserName);
+    private void setIOSWebAppiumDriver(String platformName, String udid, String platformVersion, String browserName) {
+        XCUITestOptions options = new XCUITestOptions();
+        options.setCapability("browserName", browserName);
+        options.setCapability("udid", udid);
+        options.setCapability("platformName", platformName);
+        options.setCapability("platformVersion", platformVersion);
 
         try {
-            appiumDriver = new AppiumDriver(new URL(System.getProperty("ts.appium")), capabilities);
+            appiumDriver = new AppiumDriver(new URL(System.getProperty("ts.appium")), options);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
