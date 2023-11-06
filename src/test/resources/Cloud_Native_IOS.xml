@@ -2,8 +2,8 @@
 <suite name="iOS Native mobile testing Suite for EPAM Mobile Cloud">
   <parameter name="appType" value="native"></parameter>
   <parameter name="platformName" value="iOS"></parameter>
-  <parameter name="udid" value="54a829ebde9bda957d3600f6e67a4de61b88fac5"></parameter>
-  <parameter name="platformVersion" value="12.3"></parameter>
+  <parameter name="udid" value="00008101-000650A90EA0001E"></parameter>
+  <!--parameter name="platformVersion" value="15.2.1"></parameter-->
   <parameter name="bundleId" value="com.epam.EPAMTestApp.ii"></parameter>
   <!--parameter name="deviceName" value="iPhone 8"></parameter-->
   <test name="iOS Native tests">
